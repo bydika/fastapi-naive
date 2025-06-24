@@ -6,16 +6,16 @@ import requests
 import io
 
 # Load model
-# model = joblib.load('model_naive_bayes.pkl')
+model = joblib.load('model_naive_bayes.pkl')
 
 # Load model dari URL
-def load_model():
-    url = "https://ybbzadgwnxmwoalkkecn.supabase.co/storage/v1/object/public/news//model_naive_bayes.pkl"
-    response = requests.get(url)
-    model = joblib.load(io.BytesIO(response.content))
-    return model
+# def load_model():
+#     url = "https://ybbzadgwnxmwoalkkecn.supabase.co/storage/v1/object/public/news//model_naive_bayes.pkl"
+#     response = requests.get(url)
+#     model = joblib.load(io.BytesIO(response.content))
+#     return model
 
-model = load_model()
+# model = load_model()
 
 app = FastAPI()
 
