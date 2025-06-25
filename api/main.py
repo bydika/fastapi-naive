@@ -4,6 +4,7 @@ import pandas as pd
 import joblib
 import requests
 import io
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load model
 model = joblib.load('model_naive_bayes.pkl')
@@ -18,7 +19,13 @@ model = joblib.load('model_naive_bayes.pkl')
 # model = load_model()
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Ganti "*" dengan asal frontend kamu di production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # 🛠 PASTIKAN NAMA-NAMA FIELD INI SAMA DENGAN NAMA FITUR DI MODEL
 class PasienInput(BaseModel):
     batuk_2_minggu: int
