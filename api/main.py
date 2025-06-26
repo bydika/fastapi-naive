@@ -7,7 +7,7 @@ import io
 from fastapi.middleware.cors import CORSMiddleware
 
 # Load model
-model = joblib.load('model_naive_bayes.pkl')
+model = joblib.load('model_naive_bayes_new.pkl')
 
 # Load model dari URL
 # def load_model():
