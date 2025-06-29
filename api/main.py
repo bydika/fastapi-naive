@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 
 # Load model
-model = joblib.load('model_manual_naive_bayes.pkl')
+model = joblib.load('model.pkl')
 
 app = FastAPI()
 app.add_middleware(
