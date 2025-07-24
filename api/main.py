@@ -13,12 +13,12 @@ model = joblib.load('model.pkl')
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Ganti "*" dengan asal frontend kamu di production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# 🛠 PASTIKAN NAMA-NAMA FIELD INI SAMA DENGAN NAMA FITUR DI MODEL
+
 class PasienInput(BaseModel):
     batuk_2_minggu: int
     batuk_berdarah: int
@@ -36,7 +36,6 @@ async def index():
 def predict_tbc(data: PasienInput):
     df = pd.DataFrame([data.dict()])
 
-    # Pastikan urutan kolom sesuai
     df = df[[  
         "batuk_2_minggu",
         "batuk_berdarah",
@@ -47,7 +46,6 @@ def predict_tbc(data: PasienInput):
         "berkeringat"
     ]]
 
-    # Gunakan model manual untuk prediksi probabilitas
     hasil_proba = predict_proba_manual(model, df)
     prob_positif = hasil_proba[1] * 100
     hasil = "terduga" if prob_positif >= 85 else "negatif"
@@ -63,7 +61,7 @@ def predict_proba_manual(model, df):
     total = 0
 
     for c in model:
-        log_prob = np.log(model[c]['prior'])  # log prior
+        log_prob = np.log(model[c]['prior'])
         for feature in df.columns:
             prob = model[c]['probs'][feature]
             if row[feature] == 1:
